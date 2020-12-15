@@ -13,12 +13,12 @@ app.get("/", (req, res) => {
 });
 app.get("/api/images", async (req, res) => {
 	const { resources } = await cloudinary.search
-		.expression("folder:samples")
+		.expression("folder:wallpapers")
 		.sort_by("public_id", "desc")
 		.max_results(30)
 		.execute();
-
-	const publicIds = resources.map((file) => file.public_id);
+	console.log(resources.map((file) => file.url));
+	const publicIds = resources.map((file) => file.url);
 	res.send(publicIds);
 });
 app.post("/api/upload", async (req, res) => {
